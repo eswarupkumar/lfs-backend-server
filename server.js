@@ -11,6 +11,7 @@ const routes = require('./routes/auth')
 const category = require('./routes/category')
 const passport = require('passport');
 var path = require('path');
+app.use(cors())
 // const session = require('express-session');
 // const cookieSession = require('cookie-session')
 // require('./config/passport')(passport)
