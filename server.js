@@ -5,6 +5,7 @@ const app = express()
 require("dotenv").config({path: '../.env'});
 const cors =require('cors')
 // const port = 5000
+const port = process.env.PORT || 5000;
 const cookie_parser=require("cookie-parser")
 const mongoose =require('mongoose')
 const routes = require('./routes/auth')
@@ -80,4 +81,4 @@ app.use('/',routes)
 app.use('/',category)
 
 
-app.listen(process.env.PORT,()=> console.log(`Listening to port ${process.env.PORT}`))
+app.listen(port,()=> console.log(`Listening to port ${port} !!`))
