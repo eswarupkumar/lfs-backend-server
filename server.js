@@ -4,7 +4,7 @@ const app = express()
 // const morgan =require('morgan')
 require("dotenv").config({path: '../.env'});
 const cors =require('cors')
-const port = 5000
+// const port = 5000
 const cookie_parser=require("cookie-parser")
 const mongoose =require('mongoose')
 const routes = require('./routes/auth')
@@ -79,4 +79,4 @@ app.use('/',routes)
 app.use('/',category)
 
 
-app.listen(port,()=> console.log(`Listening to port ${port}`))
+app.listen(process.env.PORT,()=> console.log(`Listening to port ${process.env.PORT}`))
