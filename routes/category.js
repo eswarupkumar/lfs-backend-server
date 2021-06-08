@@ -258,9 +258,9 @@ router.get("/myresponses/:id", (req, res) => {
   });
 });
 
-router.get("/mylistings/:id", (req, res) => {
+router.get("/mylisting/:id", (req, res) => {
   const { id } = req.params;
-  // console.log("Used Id is :",id)
+  console.log("Used Id is :",id)
   postitem.find({ createdBy: id }).exec((err, item) => {
     if (err) return res.status(400).json({ Error: err });
 

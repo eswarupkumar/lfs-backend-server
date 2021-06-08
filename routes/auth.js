@@ -127,7 +127,7 @@ function checkPassword(req,res,next){
     }  
 }
 
-router.get('/',(req,res)=>res.send("Home page"))
+router.get('/',(req,res)=>res.send("Home page !!"))
 
 router.post('/signup',checkField,checkUsername,checkPassword,async (req,res)=>{
     console.log("Signup :", req.body)

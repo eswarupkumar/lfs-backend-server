@@ -21,7 +21,7 @@ app.enable("trust proxy")
 // app.use(fileUpload())
 // app.use(cors())//avoid inter port communication error
 app.use(cors({
-    origin:"http://localhost:3000",
+    origin:"https://lfs-project.herokuapp.com",
     credentials: true
 }));
 app.use(express.static(path.join(__dirname, 'uploads')));
@@ -73,7 +73,7 @@ mongoose.connect(`mongodb+srv://${process.env.MONGO_DB_USER}:${process.env.MONGO
 })
 
 mongoose.connection.on('connected',()=>{
-    console.log('Database connected')
+    console.log('Database connected !')
 })
 
 app.use('/',routes)
