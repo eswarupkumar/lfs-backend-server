@@ -7,6 +7,8 @@ const express = require("express");
 const router = express.Router();
 const multer = require("multer");
 const shortid = require("shortid");
+var aws = require('aws-sdk')
+var multerS3 = require('multer-s3')
 // const upload=multer({dest:'uploads/'})
 const path = require("path");
 const log = console.log;
@@ -23,11 +25,29 @@ var storage = multer.diskStorage({
 
 var upload = multer({ storage });
 
+const AWS= new aws.S3({
+  accessKeyId: 'AKIAS4VSN6JAC5AG5YWG',
+  secretAccessKey: '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'
+})
+var uploadS3 = multer({
+  storage: multerS3({
+    s3: AWS,
+    bucket: 'lost-and-found-system',
+    acl:'public-read',
+    metadata: function (req, file, cb) {
+      cb(null, {fieldName: file.fieldname});
+    },
+    key: function (req, file, cb) {
+      cb(null, shortid.generate() + "-" + file.originalname + "-" + Date.now())
+    }
+  })
+})
+
 router.post(
   "/postitem",
   requireSignin,
   userMiddleware,
-  upload.array("itemPictures"),
+  uploadS3.array("itemPictures"),
   async (req, res) => {
     // console.log(req)
     console.log("Hitted the POST successfully ");
@@ -40,7 +60,7 @@ router.post(
       var itemPictures = [];
       if (req.files.length > 0) {
         itemPictures = req.files.map((file) => {
-          return { img: file.filename };
+          return { img: file.key };
         });
       }
 
