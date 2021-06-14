@@ -1,6 +1,6 @@
 const { postitem } = require("../models/category");
 const messageschema = require("../models/messages");
-
+require("dotenv").config({path: '../../.env'});
 // const { requestitem } = require("../models/category");
 const { requireSignin, userMiddleware } = require("../middleware");
 const express = require("express");
@@ -26,8 +26,8 @@ var storage = multer.diskStorage({
 var upload = multer({ storage });
 
 const AWS= new aws.S3({
-  accessKeyId: 'AKIAS4VSN6JAC5AG5YWG',
-  secretAccessKey: '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'
+  accessKeyId: process.env.AWSACCESSKEY,
+  secretAccessKey: process.env.AWSSECRETACCESSKEY
 })
 var uploadS3 = multer({
   storage: multerS3({
